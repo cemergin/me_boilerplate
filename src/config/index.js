@@ -1,4 +1,5 @@
 import { merge } from 'lodash'
+import { DB_URL, JWT_SECRET } from 'babel-dotenv'
 const env = process.env.NODE_ENV || 'development'
 
 const baseConfig = {
@@ -7,24 +8,10 @@ const baseConfig = {
   isTest: env === 'testing',
   port: 3000,
   secrets: {
-    jwt: process.env.JWT_SECRET,
+    jwt: process.env.JWT_SECRET || JWT_SECRET,
     jwtExp: '5d',
   },
+  dbUrl: process.env.DB_URL || DB_URL,
 }
 
-let envConfig = {}
-
-switch (env) {
-  case 'dev':
-  case 'development':
-    envConfig = require('./dev').config
-    break
-  case 'test':
-  case 'testing':
-    envConfig = require('./testing').config
-    break
-  default:
-    envConfig = require('./dev').config
-}
-
-export default merge(baseConfig, envConfig)
+export default baseConfig

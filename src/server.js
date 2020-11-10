@@ -1,4 +1,5 @@
 import express from 'express'
+require('dotenv').config()
 import { json, urlencoded } from 'body-parser'
 import morgan from 'morgan'
 import config from './config'

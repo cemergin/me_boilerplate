@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/cemergin/me_boilerplate#readme",
   "dependencies": {
+    "babel-plugin-dotenv": "^0.1.1",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
