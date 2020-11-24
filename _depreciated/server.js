@@ -1,8 +1,10 @@
 import express from 'express'
 import { json, urlencoded } from 'body-parser'
 import morgan from 'morgan'
+import config from './config'
 import cors from 'cors'
 
+import { signup, signin, protect } from './utils/auth'
 import { connect } from './utils/db'
 
 export const app = express()
@@ -13,13 +15,16 @@ app.use(json())
 app.use(urlencoded({ extended: true }))
 app.use(morgan('dev'))
 
-const port = process.env.PORT || 3000
+app.post('/signup', signup)
+app.post('/signin', signin)
+
+app.use('/api', protect)
 
 export const start = async () => {
   try {
     await connect()
-    app.listen(port, () => {
-      console.log(`REST API listening son http://localhost:${port}/`)
+    app.listen(config.port, () => {
+      console.log(`REST API listening on http://localhost:${config.port}/api`)
     })
   } catch (e) {
     console.error(e)
